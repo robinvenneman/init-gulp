@@ -20,7 +20,7 @@ gulp.task('styles', function () {
 		.pipe($.sass().on('error', $.sass.logError))
 		.pipe($.autoprefixer())
 		.pipe($.concat('style.css'))
-		.pipe($.csso())
+		.pipe($.cleanCss())
 		.pipe($.sourcemaps.write('.'))
 		.pipe(gulp.dest('build/css'))
 		.pipe($.size({
