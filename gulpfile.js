@@ -70,6 +70,14 @@ function startServer() {
 	});
 }
 
+function watch() {
+	gulp.watch([
+		'src/scripts/**/*.js',
+		'src/styles/**/*.scss',
+		'src/index.html'
+	], gulp.series('build'));
+}
+
 /* -----------------
  * PUBLIC GULP TASKS
  * Intended for CLI
@@ -83,14 +91,6 @@ gulp.task('build', gulp.series(
 	)
 );
 
-gulp.task('serve', gulp.parallel(
-	startServer, function() {
-		gulp.watch([
-			'src/scripts/**/*.js',
-			'src/styles/**/*.scss',
-			'src/index.html'
-		], gulp.series('build'));
-	}
-));
+gulp.task('serve', gulp.parallel(startServer, watch));
 
 gulp.task('default', gulp.series('build', 'serve'));
