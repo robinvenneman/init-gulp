@@ -4,9 +4,15 @@ var gulp = require('gulp');
 var del = require('del');
 var browserSync = require('browser-sync');
 var mergeStream = require('merge-stream');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var babelify = require('babelify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 // load Gulp plugins
 var $ = require('gulp-load-plugins')();
+
 
 /* ------------------
  * PRIVATE GULP TASKS
@@ -33,10 +39,16 @@ function buildCSS() {
 }
 
 function buildJS() {
-	return gulp.src('src/scripts/**/*.js')
+	return browserify({
+			entries: 'src/scripts/main.js',
+			debug: true
+		})
+		.transform(babelify, {presets: ['es2016']})
+		.bundle()
+		.pipe(source('bundle.js'))
+		.pipe(buffer())
 		.pipe($.eslint())
 		.pipe($.eslint.format())
-		.pipe($.concat('bundle.js'))
 		.pipe($.uglify())
 		.pipe(gulp.dest('build/js'))
 		.pipe($.size({
@@ -77,6 +89,7 @@ function watch() {
 		'src/index.html'
 	], gulp.series('build'));
 }
+
 
 /* -----------------
  * PUBLIC GULP TASKS
