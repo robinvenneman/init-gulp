@@ -4,13 +4,15 @@
   "author": "Robin Venneman",
   "version": "1.0.0",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "build": "gulp build",
+    "serve": "gulp serve"
   },
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.13.0",
     "del": "^2.2.1",
-    "gulp": "^3.9.1",
+    "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^2.0.11",
